@@ -9,5 +9,9 @@ public class Config : MonoSingleton<Config>
     // Config
     public Vector2i BaseScreenSize;
 
+    [HideInInspector]
+    public List<Room> Rooms;
+
+
 
 }

@@ -21,8 +21,8 @@ public class Ghost : MonoBehaviour
         var direction = GetMovementDirection();
         direction *= Speed;
         direction *= Time.deltaTime;
-        Rigidbody.velocity = direction * 100;
-        //transform.Translate(direction);
+        //Rigidbody.velocity = direction * 100;
+        transform.Translate(direction);
     }
 
     private void OnKeyDown()
@@ -39,6 +39,7 @@ public class Ghost : MonoBehaviour
         var item = GhostItemCollider.Item;
         if (item == null)
             return;
+        item.Used();
         House.Instance.DoClick(item);
     }
 

@@ -23,6 +23,7 @@ public class Bot : MonoBehaviour
             UpdateFearUI();
             UpdateAttentionArea();
             CheckRage();
+            CheckGoHomeYoureDrunk();
         }
     }
 
@@ -184,6 +185,14 @@ public class Bot : MonoBehaviour
     private void CheckRage()
     {
         if(FearLevel >= Config.Instance.RageAtFearLevel)
+        {
+            SetBotStatus<RunRandomlyStatus>();
+        }
+    }
+
+    private void CheckGoHomeYoureDrunk()
+    {
+        if (FearLevel == 100)
         {
             SetBotStatus<RunRandomlyStatus>();
         }

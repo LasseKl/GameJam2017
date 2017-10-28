@@ -1715,6 +1715,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 523784649}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &558771998
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 558771999}
+  m_Layer: 0
+  m_Name: OutOfHome
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &558771999
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 558771998}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -17.45}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 735670683}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &611383588
 GameObject:
   m_ObjectHideFlags: 0
@@ -1992,6 +2020,7 @@ Transform:
   - {fileID: 1884186551}
   - {fileID: 1591633414}
   - {fileID: 1088019073}
+  - {fileID: 558771999}
   m_Father: {fileID: 357759813}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3376,9 +3405,9 @@ MonoBehaviour:
   Rooms: []
   chillDurationMin: 10
   chillDurationMax: 20
-  groupChillDurationMin: 10
+  groupChillDurationMin: 20
   groupChillDurationMax: 30
-  runOutOfHouseTarget: {x: 0, y: 0, z: 0}
+  OutOfHouse: {fileID: 558771999}
 --- !u!1001 &1318337401
 Prefab:
   m_ObjectHideFlags: 0
@@ -4198,6 +4227,11 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: 712d88e7a91444522817fa48f756ccf3,
         type: 3}
+    - target: {fileID: 136393784230471466, guid: 8d7e96275c7a4734abd71c4856d719bb,
+        type: 2}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d7e96275c7a4734abd71c4856d719bb, type: 2}
   m_IsPrefabParent: 0

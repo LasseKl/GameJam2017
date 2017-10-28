@@ -22,6 +22,8 @@ public class BotAttentionArea : MonoBehaviour
         var myName = Bot.name;
         if(other.tag != "Bot")
             return;
+        if(Bot.tag != "Bot")
+            return;
         var hasCrowd = Bot.Crowd != null;
         if (hasCrowd)
             return;

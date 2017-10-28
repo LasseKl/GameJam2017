@@ -37,5 +37,13 @@ public class GroupChillStatus : BaseStatus
     {
         Timer.Instance.Stop(timerId);
     }
+
+    public override void Update()
+    {
+        if(Bot.Agent.TargetReached(2))
+        {
+            Bot.Agent.speed = 0;
+        }
+    }
 }
 

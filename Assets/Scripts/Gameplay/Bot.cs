@@ -29,8 +29,8 @@ public class Bot : MonoBehaviour
     private Room currentRoom;
     private NavMeshAgent agent;
     private BaseStatus CurBotStatus;
-    public float BaseSpeed = 2;
-    public float FearSpeed = 2;
+    public float BaseSpeed = 3.5f;
+    public float FearSpeed = 6f;
 
     public void ActivateTimeout()
     {
@@ -140,7 +140,7 @@ public class Bot : MonoBehaviour
         //Teste Raum verlassen
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SetBotStatus<ChangeRoomStatus>();
+            SetBotStatus<RunRandomlyStatus>();
         }
     }
 

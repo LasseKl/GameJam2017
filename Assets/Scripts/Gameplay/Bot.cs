@@ -22,15 +22,20 @@ public class Bot : MonoBehaviour
             _fearLevel = Mathf.Clamp(value, 0, 100);
             UpdateFearUI();
             UpdateAttentionArea();
+            CheckRage();
         }
     }
 
     private Room currentRoom;
     private NavMeshAgent agent;
-    private float PanicTimeout;
     private BaseStatus CurBotStatus;
     public float BaseSpeed = 2;
     public float FearSpeed = 2;
+
+    public void ActivateTimeout()
+    {
+
+    }
 
     private Crowd crowd;
 
@@ -172,6 +177,14 @@ public class Bot : MonoBehaviour
     {
         var radius = ActualAttentionRadius;
         AttentionArea.SetRadius(radius);
+    }
+
+    private void CheckRage()
+    {
+        if(FearLevel >= Config.Instance.RageAtFearLevel)
+        {
+            SetBotStatus<RunRandomlyStatus>();
+        }
     }
 
 }

@@ -5,13 +5,3 @@ public enum GameplayStatus
     MatchStart,
     MatchStop,
 }
-
-public enum BotStatus
-{
-    None,
-    Chill,
-    GroupChill,
-    ChangeRoom,
-    LeaveHouse,
-    RunRandomly,
-}

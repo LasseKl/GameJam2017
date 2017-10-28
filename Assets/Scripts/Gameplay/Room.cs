@@ -8,6 +8,21 @@ public class Room : MonoBehaviour
     private BoxCollider boxCollider;
     public List<Bot> Bots;
     const float BORDER = 2.5f;
+    public List<Room> Neighbours;
+
+    //[HideInInspector]
+    public List<Crowd> crowds;
+    public List<Crowd> Crowds
+    {
+        get
+        {
+            return crowds;
+        }
+        set
+        {
+            crowds = value;
+        }
+    }
 
     public Vector3 Size
     {
@@ -42,15 +57,21 @@ public class Room : MonoBehaviour
     void Awake()
     {
         Config.Instance.Rooms.Add(this);
+        Crowds = new List<Crowd>();
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Bot")
+        var isCrownLeaver = other.tag == "CrownLeaver";
+        if (other.tag == "Bot" || isCrownLeaver)
         {
             var bot = other.GetComponent<Bot>();
             this.Bots.Add(bot);
             bot.CurrentRoom = this;
+            if (isCrownLeaver)
+            {
+                other.tag = "Bot";
+            }
         }
         //if (other.tag == "Item")
         //{
@@ -86,5 +107,12 @@ public class Room : MonoBehaviour
         if (excluded != null)
             rooms.Remove(excluded);
         return rooms[Random.Range(0, rooms.Count)];
+    }
+
+    public Crowd AddCrowd()
+    {
+        var crowd = new Crowd();
+        this.Crowds.Add(crowd);
+        return crowd;
     }
 }

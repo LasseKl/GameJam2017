@@ -8,6 +8,7 @@ using UnityEngine.AI;
 public class Bot : MonoBehaviour
 {
     public TextMesh FearLevelText;
+    public BotAttentionArea AttentionArea;
 
     private float _fearLevel;
     public float FearLevel
@@ -20,6 +21,7 @@ public class Bot : MonoBehaviour
         {
             _fearLevel = Mathf.Clamp(value, 0, 100);
             UpdateFearUI();
+            UpdateAttentionArea();
         }
     }
 
@@ -29,6 +31,20 @@ public class Bot : MonoBehaviour
     private BaseStatus CurBotStatus;
     public float BaseSpeed = 2;
     public float FearSpeed = 2;
+
+    private Crowd crowd;
+
+    public Crowd Crowd
+    {
+        get
+        {
+            return crowd;
+        }
+        set
+        {
+            crowd = value;
+        }
+    }
 
     public float ActualSpeed
     {
@@ -40,7 +56,7 @@ public class Bot : MonoBehaviour
 
     public float AttentionBaseRadius;
 
-    public float ActualAttenRadius
+    public float ActualAttentionRadius
     {
         get
         {
@@ -95,6 +111,12 @@ public class Bot : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         Updater.Instance.OnUpdate += DoUpdate;
         FearLevel = 0;
+        InitStatus();
+        AttentionArea.Bot = this;
+
+        FearLevel = 0;
+        //CurBotStatus = BotStatus.Chill;
+        SetBotStatus<ChillStatus>();
     }
 
     private void SetupChillStatus()
@@ -144,10 +166,14 @@ public class Bot : MonoBehaviour
         baseStatus.Activate();
         CurBotStatus = baseStatus;
     }
-
     public void SetNewTargetInRoom()
     {
         agent.destination = TargetRoom.GetRandomPosInRoom();
+}
+    private void UpdateAttentionArea()
+    {
+        var radius = ActualAttentionRadius;
+        AttentionArea.SetRadius(radius);
     }
 
 }

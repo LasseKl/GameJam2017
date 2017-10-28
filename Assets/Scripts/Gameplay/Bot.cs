@@ -189,4 +189,27 @@ public class Bot : MonoBehaviour
         }
     }
 
+    private bool isPushingAway = false;
+    private Vector3 _direction;
+    private Rigidbody rigidbody;
+
+    public void DoPush(Vector3 direction)
+    {
+        rigidbody = GetComponent<Rigidbody>();
+        Updater.Instance.OnUpdate += PushUpdate;
+        _direction = direction;
+        if (isPushingAway)
+            return;
+        Timer.Instance.Add(0.2f, () =>
+        {
+            isPushingAway = false;
+            Updater.Instance.OnUpdate -= PushUpdate;
+        });
+    }
+
+    private void PushUpdate()
+    {
+        var thrust = 20f;
+        rigidbody.AddForce(_direction * thrust);
+    }
 }

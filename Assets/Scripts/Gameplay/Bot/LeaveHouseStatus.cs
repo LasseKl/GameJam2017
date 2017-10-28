@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class LeaveHouseStatus : BaseStatus
 {
-
     public override void Activate()
     {
+        Bot.Agent.destination = Config.Instance.runOutOfHouseTarget;
     }
-
 }

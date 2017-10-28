@@ -21,6 +21,8 @@ public class Config : MonoSingleton<Config>
     public float groupChillDurationMin = 10;
     public float groupChillDurationMax = 30;
 
+    public Vector3 runOutOfHouseTarget;
+
     public float GetRandomGroupChillDuration()
     {
         return Random.Range(groupChillDurationMin, groupChillDurationMax);

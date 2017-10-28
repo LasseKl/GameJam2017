@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TinyRoar.Framework;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -31,5 +32,21 @@ public class Bot : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         CurrentRoom = FindObjectOfType<Room>();
+        Updater.Instance.OnUpdate += DoUpdate;
     }
+
+    void DoUpdate()
+    {
+        UpdateFear();
+    }
+
+    private void UpdateFear()
+    {
+        if (FearLevel == 0)
+            return;
+        FearLevel -= Config.Instance.FearLoosePerSecond * Time.deltaTime;
+        if (FearLevel <= 0)
+            FearLevel = 0;
+    }
+
 }

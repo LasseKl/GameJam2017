@@ -10,6 +10,8 @@ public class Config : MonoSingleton<Config>
     public Vector2i BaseScreenSize;
 
     public float FearLoosePerSecond = 0.1f;
+    public float FearIncreasePerSeondAtRage = 0.2f;
+    public float RageAtFearLevel = 60;
 
     [HideInInspector]
     public List<Room> Rooms;

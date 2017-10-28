@@ -55,8 +55,10 @@ public class House : MonoBehaviour
             var dist = Vector3.Distance(bot.transform.position, item.transform.position);
             var relativeDist = 1 - Mathf.Min(dist / maxDist, 1);
 
-            // bots.fearValue += item.FearValue * distance;
+            bot.SetBotStatus<ChangeRoomStatus>();
+            bot.tag = "GroupLeaver";
             bot.FearLevel += item.FearValue * relativeDist;
+
         }
 
     }

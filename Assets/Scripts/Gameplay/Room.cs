@@ -5,6 +5,7 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     private BoxCollider boxCollider;
+    public List<Bot> Bots;
 
     public Vector3 Size
     {
@@ -52,4 +53,21 @@ public class Room : MonoBehaviour
         boxCollider = GetComponent<BoxCollider>();
         Config.Instance.Rooms.Add(this);
     }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.tag != "Bot")
+            return;
+        var bot = other.GetComponent<Bot>();
+        this.Bots.Add(bot);
+        bot.CurrentRoom = this;
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.tag != "Bot")
+            return;
+        this.Bots.Remove(other.GetComponent<Bot>());
+    }
+
 }

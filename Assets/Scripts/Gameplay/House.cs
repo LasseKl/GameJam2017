@@ -4,40 +4,40 @@ using System.Collections.Generic;
 using TinyRoar.Framework;
 using UnityEngine;
 
-public class House : MonoBehaviour
+public class House : MonoSingleton<House>
 {
     void Start()
     {
-        Inputs.Instance.OnLeftMouseDown += OnLeftMouseDown;
+        //Inputs.Instance.OnLeftMouseDown += OnLeftMouseDown;
     }
 
-    private void OnDestroy()
-    {
-        try
-        {
-            Inputs.Instance.OnLeftMouseDown -= OnLeftMouseDown;
-        }
-        catch(Exception e)
-        {
-        }
-    }
+    //private void OnDestroy()
+    //{
+    //    try
+    //    {
+    //        Inputs.Instance.OnLeftMouseDown -= OnLeftMouseDown;
+    //    }
+    //    catch(Exception e)
+    //    {
+    //    }
+    //}
 
-    private void OnLeftMouseDown()
-    {
-        DoClick();
-    }
+    //private void OnLeftMouseDown()
+    //{
+    //    DoClick();
+    //}
 
-    private void DoClick()
+    public void DoClick(Item item)
     {
-        Vector3 fwd = transform.TransformDirection(Vector3.forward);
+        //Vector3 fwd = transform.TransformDirection(Vector3.forward);
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hitInfo;
-        if (!Physics.Raycast(ray, out hitInfo))
-            return;
-        if (hitInfo.transform.tag != "Item")
-            return;
-        var item = hitInfo.transform.GetComponent<Item>();
+        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //RaycastHit hitInfo;
+        //if (!Physics.Raycast(ray, out hitInfo))
+        //    return;
+        //if (hitInfo.transform.tag != "Item")
+        //    return;
+        //var item = hitInfo.transform.GetComponent<Item>();
 
 
         // find room r
@@ -53,10 +53,16 @@ public class House : MonoBehaviour
         foreach (var bot in bots)
         {
             var dist = Vector3.Distance(bot.transform.position, item.transform.position);
+            dist *= 2;
             var relativeDist = 1 - Mathf.Min(dist / maxDist, 1);
 
+            var thrust = 10.0f;
+            var rb = bot.GetComponent<Rigidbody>();
+            rb.AddForce(transform.forward * thrust);
+            Print.Log("ADD FORCE");
+
             bot.SetBotStatus<ChangeRoomStatus>();
-            bot.tag = "GroupLeaver";
+            bot.tag = "CrowdLeaver";
             bot.FearLevel += item.FearValue * relativeDist;
 
         }

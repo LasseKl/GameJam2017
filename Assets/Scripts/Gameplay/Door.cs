@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Door : MonoBehaviour
 {
-    private List<Collider> blockingGhosts = new List<Collider>();
+    private List<Ghost> blockingGhosts = new List<Ghost>();
     private bool closed = false;
     public GameObject openObj;
     public GameObject closedObj;
@@ -15,7 +15,7 @@ public class Door : MonoBehaviour
     {
         if (other.tag == "Ghost")
         {
-            blockingGhosts.Add(other);
+            blockingGhosts.Add(other.GetComponent<Ghost>());
         }
     }
 
@@ -32,7 +32,7 @@ public class Door : MonoBehaviour
     {
         if(other.tag == "Ghost")
         {
-            blockingGhosts.Remove(other);
+            blockingGhosts.Remove(other.GetComponent<Ghost>());
         }
     }
 

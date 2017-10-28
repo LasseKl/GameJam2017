@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1269,8 +1269,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 398230075}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 632, y: 381.5, z: 0}
-  m_LocalScale: {x: 0.6819826, y: 0.6819826, z: 0.6819826}
+  m_LocalPosition: {x: 287.5, y: 161.5, z: 0}
+  m_LocalScale: {x: 0.29927653, y: 0.29927653, z: 0.29927653}
   m_Children:
   - {fileID: 897507227}
   m_Father: {fileID: 0}
@@ -1354,7 +1354,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 611985452}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &418817144
 GameObject:
@@ -1733,7 +1733,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2002124937}
   m_Father: {fileID: 611985452}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1932,7 +1933,6 @@ Transform:
   m_Children:
   - {fileID: 1012813104}
   - {fileID: 521565130}
-  - {fileID: 2002124937}
   - {fileID: 414784714}
   m_Father: {fileID: 735670683}
   m_RootOrder: 6
@@ -5188,7 +5188,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 611985452}
+    m_TransformParent: {fileID: 521565130}
     m_Modifications:
     - target: {fileID: 4405154330970950, guid: b70492b893e44ae408d07a399f8d70b0, type: 2}
       propertyPath: m_LocalPosition.x
@@ -5220,7 +5220,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4405154330970950, guid: b70492b893e44ae408d07a399f8d70b0, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1459555653576322, guid: b70492b893e44ae408d07a399f8d70b0, type: 2}
       propertyPath: m_Name
@@ -5344,6 +5344,11 @@ Prefab:
         type: 2}
       propertyPath: SoundDebug
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114452413568607414, guid: 950a9c7427136114cb55040b3247ec0d,
+        type: 2}
+      propertyPath: Debug
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 950a9c7427136114cb55040b3247ec0d, type: 2}

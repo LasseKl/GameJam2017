@@ -39,14 +39,25 @@ public class House : MonoBehaviour
             return;
         var item = hitInfo.transform.GetComponent<Item>();
 
+
         // find room r
         // find all bots b[] in r
+        var bots = item.Room.Bots;
+
         // float maxDist = room.halbeBreite/Höhe = 100%.
+        var size = item.Room.Size;
+        var maxDist = (size.x + size.z) / 2;
+
         // find Distance zwischen item und bot und dies * maxDist in prozent.
         // aber d max=100%
-        // bots.fearValue += item.FearValue * distance;
+        foreach (var bot in bots)
+        {
+            var dist = Vector3.Distance(bot.transform.position, item.transform.position);
+            var relativeDist = 1 - Mathf.Min(dist / maxDist, 1);
 
-        //item.FearValue
+            // bots.fearValue += item.FearValue * distance;
+            bot.FearLevel += item.FearValue * relativeDist;
+        }
 
     }
 

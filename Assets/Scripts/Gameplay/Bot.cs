@@ -6,10 +6,21 @@ using UnityEngine.AI;
 
 public class Bot : MonoBehaviour
 {
+    public TextMesh FearLevelText;
 
-    [HideInInspector]
-    public float FearLevel;
-
+    private float _fearLevel;
+    public float FearLevel
+    {
+        get
+        {
+            return _fearLevel;
+        }
+        set
+        {
+            _fearLevel = Mathf.Clamp(value, 0, 100);
+            UpdateFearUI();
+        }
+    }
 
     private Room currentRoom;
     private NavMeshAgent agent;
@@ -33,6 +44,7 @@ public class Bot : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         CurrentRoom = FindObjectOfType<Room>();
         Updater.Instance.OnUpdate += DoUpdate;
+        FearLevel = 0;
     }
 
     void DoUpdate()
@@ -44,9 +56,15 @@ public class Bot : MonoBehaviour
     {
         if (FearLevel == 0)
             return;
-        FearLevel -= Config.Instance.FearLoosePerSecond * Time.deltaTime;
-        if (FearLevel <= 0)
-            FearLevel = 0;
+        var value = FearLevel - Config.Instance.FearLoosePerSecond * Time.deltaTime;
+        if (value <= 0)
+            value = 0;
+        FearLevel = value;
+    }
+
+    private void UpdateFearUI()
+    {
+        FearLevelText.text = ((int)FearLevel).ToString();
     }
 
 }

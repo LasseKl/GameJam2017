@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ChillStatus : BaseStatus
 {
-    void Activate()
+
+    public override void Activate()
     {
-        BotStatus = BotStatus.Chill;
     }
 }

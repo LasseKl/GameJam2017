@@ -26,7 +26,7 @@ public class Bot : MonoBehaviour
     private Room currentRoom;
     private NavMeshAgent agent;
     private float PanicTimeout;
-    private BotStatus CurBotStatus;
+    private BaseStatus CurBotStatus;
     public float BaseSpeed = 2;
     public float FearSpeed = 2;
 
@@ -48,7 +48,7 @@ public class Bot : MonoBehaviour
         } 
     }
 
-    private Dictionary<BotStatus, BaseStatus> _botStatus;
+    //private Dictionary<BotStatus, BaseStatus> _botStatus;
 
     [HideInInspector]
     public Room CurrentRoom
@@ -72,20 +72,21 @@ public class Bot : MonoBehaviour
         FearLevel = 0;
         InitStatus();
 
-        CurBotStatus = BotStatus.Chill;
+        //CurBotStatus = BotStatus.Chill;
+        SetBotStatus<ChillStatus>();
     }
 
     private void InitStatus()
     {
-        _botStatus = new Dictionary<BotStatus, BaseStatus>();
-        foreach (BotStatus botStatus in Enum.GetValues(typeof(BotStatus)))
-        {
-            if (botStatus == BotStatus.None)
-                continue;
-            var baseStatus = CodeHelper.CreateInstance<BaseStatus>(botStatus+"Status");
-            baseStatus.Bot = this;
-            _botStatus.Add(botStatus, baseStatus);
-        }
+        //_botStatus = new Dictionary<BotStatus, BaseStatus>();
+        //foreach (BotStatus botStatus in Enum.GetValues(typeof(BotStatus)))
+        //{
+        //    if (botStatus == BotStatus.None)
+        //        continue;
+        //    var baseStatus = CodeHelper.CreateInstance<BaseStatus>(botStatus+"Status");
+        //    baseStatus.Bot = this;
+        //    _botStatus.Add(botStatus, baseStatus);
+        //}
 
     }
 
@@ -107,6 +108,17 @@ public class Bot : MonoBehaviour
     private void UpdateFearUI()
     {
         FearLevelText.text = ((int)FearLevel).ToString();
+    }
+
+    public void SetBotStatus<T>() where T : BaseStatus, new()
+    {
+        if(CurBotStatus != null)
+            CurBotStatus.Deactivate();
+
+        var baseStatus = new T();
+        baseStatus.Bot = this;
+        baseStatus.Activate();
+        CurBotStatus = baseStatus;
     }
 
 }

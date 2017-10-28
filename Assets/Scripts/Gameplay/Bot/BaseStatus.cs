@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseStatus
+public abstract class BaseStatus
 {
-    protected BotStatus BotStatus;
     public Bot Bot;
+
+
+    public abstract void Activate();
+    public virtual void Deactivate()
+    {
+    }
 
 }

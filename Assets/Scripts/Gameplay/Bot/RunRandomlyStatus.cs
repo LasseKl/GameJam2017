@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class RunRandomlyStatus : BaseStatus
 {
-    void Activate()
+    public override void Activate()
     {
-        BotStatus = BotStatus.RunRandomly;
     }
 }

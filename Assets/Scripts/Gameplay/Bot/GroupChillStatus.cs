@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class GroupChillStatus : BaseStatus
 {
-    void Activate()
+    public override void Activate()
     {
-        BotStatus = BotStatus.GroupChill;
     }
 }

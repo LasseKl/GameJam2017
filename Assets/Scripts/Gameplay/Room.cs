@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-    private BoxCollider boxCollider;
-
     public Vector3 Size
     {
         get
         {
-            return boxCollider.size;
+            return new Vector3(transform.localScale.x / 2, transform.localScale.y / 2, transform.localScale.z / 2);
         }
     }
     public Vector3 Position
@@ -42,14 +40,13 @@ public class Room : MonoBehaviour
         get
         {
             float randomX = Random.Range(TopLeft.x, BottomRight.x);
-            float randomZ = Random.Range(TopLeft.y, BottomRight.y);
+            float randomZ = Random.Range(BottomRight.y, TopLeft.y);
             return new Vector3(randomX, 0, randomZ);
         }
     }
 
     void Start()
     {
-        boxCollider = GetComponent<BoxCollider>();
         Config.Instance.Rooms.Add(this);
     }
 }

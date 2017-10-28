@@ -63,6 +63,19 @@ public class House : MonoSingleton<House>
 
             bot.SetBotStatus<ChangeRoomStatus>();
             bot.tag = "CrowdLeaver";
+
+            // TODO maybe auslagern später?
+            bot.Crowd.Bots.Remove(bot);
+            if (bot.Crowd.Bots.Count == 1)
+            {
+                var otherBot = bot.Crowd.Bots[0];
+                otherBot.CurrentRoom.Crowds.Remove(otherBot.Crowd);
+                otherBot.Crowd = null;
+                bot.Crowd.Bots.Clear();
+                otherBot.SetBotStatus<ChangeRoomStatus>();
+                otherBot.tag = "CrowdLeaver";
+            }
+
             bot.FearLevel += item.FearValue * relativeDist;
 
         }

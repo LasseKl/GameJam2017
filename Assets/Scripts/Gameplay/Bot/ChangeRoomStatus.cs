@@ -14,7 +14,6 @@ public class ChangeRoomStatus : BaseStatus
         if (Bot.Agent.TargetReached())
         {
             Bot.SetBotStatus<ChillStatus>();
-            Bot.tag = "Bot";
         }
     }
 }

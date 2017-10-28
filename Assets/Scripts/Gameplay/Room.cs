@@ -69,6 +69,16 @@ public class Room : MonoBehaviour
             this.Bots.Add(bot);
             bot.CurrentRoom = this;
         }
+
+        if(other.tag == "CrowdLeaver")
+        {
+            var bot = other.GetComponent<Bot>();
+
+            if(bot.TargetRoom == this)
+            {
+                bot.tag = "Bot";
+            }
+        }
     }
 
     public void OnTriggerExit(Collider other)

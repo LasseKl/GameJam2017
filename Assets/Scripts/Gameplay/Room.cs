@@ -62,29 +62,20 @@ public class Room : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        var isCrownLeaver = other.tag == "CrownLeaver";
-        if (other.tag == "Bot" || isCrownLeaver)
+        var isCrowdLeaver = other.tag == "CrowdLeaver";
+        if (other.tag == "Bot" || isCrowdLeaver)
         {
             var bot = other.GetComponent<Bot>();
             this.Bots.Add(bot);
             bot.CurrentRoom = this;
-            if (isCrownLeaver)
-            {
-                other.tag = "Bot";
-            }
         }
-        //if (other.tag == "Item")
-        //{
-        //var item = other.GetComponent<Item>();
-        //item.Room = this;
-        //}
     }
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.tag != "Bot")
+        if (other.tag != "Bot" && other.tag != "CrowdLeaver")
             return;
-        this.Bots.Remove(other.GetComponent<Bot>());
+        Bots.Remove(other.GetComponent<Bot>());
     }
 
     public Vector3 GetRandomPosInRoom()

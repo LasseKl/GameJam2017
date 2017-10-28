@@ -46,7 +46,7 @@ public class House : MonoBehaviour
         // aber d max=100%
         // bots.fearValue += item.FearValue * distance;
 
-        item.FearValue
+        //item.FearValue
 
     }
 

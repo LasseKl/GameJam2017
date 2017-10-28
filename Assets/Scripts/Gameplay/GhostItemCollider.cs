@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TinyRoar.Framework;
 using UnityEngine;
 
-public class GhostItemCollider : MonoSingleton<GhostItemCollider>
+public class GhostItemCollider : MonoBehaviour
 {
     [HideInInspector]
     public Item Item;

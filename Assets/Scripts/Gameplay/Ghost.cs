@@ -8,6 +8,7 @@ public class Ghost : MonoBehaviour
     public float Speed;
     public Rigidbody Rigidbody;
     public GhostItemCollider GhostItemCollider;
+    public int PlayerId;
 
     void Start()
     {
@@ -32,8 +33,11 @@ public class Ghost : MonoBehaviour
 
     private void ItemActivation()
     {
+        //var status = true;
         // Space -> activate Items
-        if (!Input.GetKey(KeyCode.Space))
+        if (PlayerId == 1 && !Input.GetKey(KeyCode.Space))
+            return;
+        if (PlayerId == 2 && !Input.GetKey(KeyCode.Return))
             return;
         // get nearest item
         var item = GhostItemCollider.Item;
@@ -46,8 +50,8 @@ public class Ghost : MonoBehaviour
     private Vector3 GetMovementDirection()
     {
         var direction = new Vector3();
-        direction.x = Input.GetAxis("Horizontal");
-        direction.z = Input.GetAxis("Vertical");
+        direction.x = Input.GetAxis("Horizontal" + PlayerId);
+        direction.z = Input.GetAxis("Vertical" + PlayerId);
         return direction;
     }
 

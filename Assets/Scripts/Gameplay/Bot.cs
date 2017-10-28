@@ -200,7 +200,7 @@ public class Bot : MonoBehaviour
         _direction = direction;
         if (isPushingAway)
             return;
-        Timer.Instance.Add(0.3f, () =>
+        Timer.Instance.Add(1f, () =>
         {
             isPushingAway = false;
             Updater.Instance.OnUpdate -= PushUpdate;
@@ -209,7 +209,7 @@ public class Bot : MonoBehaviour
 
     private void PushUpdate()
     {
-        var thrust = 100f;
+        var thrust = 20f;
         rigidbody.AddForce(_direction * thrust);
     }
 }

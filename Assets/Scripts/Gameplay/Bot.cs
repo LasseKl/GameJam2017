@@ -8,6 +8,7 @@ using UnityEngine.AI;
 public class Bot : MonoBehaviour
 {
     public TextMesh FearLevelText;
+    public BotAttentionArea AttentionArea;
 
     private float _fearLevel;
     public float FearLevel
@@ -29,6 +30,9 @@ public class Bot : MonoBehaviour
     private BaseStatus CurBotStatus;
     public float BaseSpeed = 2;
     public float FearSpeed = 2;
+
+    [HideInInspector]
+    public Crowd Crowd;
 
     public float ActualSpeed
     {
@@ -71,6 +75,7 @@ public class Bot : MonoBehaviour
         Updater.Instance.OnUpdate += DoUpdate;
         FearLevel = 0;
         InitStatus();
+        AttentionArea.Bot = this;
 
         //CurBotStatus = BotStatus.Chill;
         SetBotStatus<ChillStatus>();

@@ -9,6 +9,8 @@ public class Room : MonoBehaviour
     public List<Bot> Bots;
     public List<Room> Neighbours;
 
+    [HideInInspector]
+    private List<Crowd> Crowds;
 
     public Vector3 Size
     {
@@ -54,15 +56,21 @@ public class Room : MonoBehaviour
     void Start()
     {
         Config.Instance.Rooms.Add(this);
+        Crowds = new List<Crowd>();
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Bot")
+        var isCrownLeaver = other.tag == "CrownLeaver";
+        if (other.tag == "Bot" || isCrownLeaver)
         {
             var bot = other.GetComponent<Bot>();
             this.Bots.Add(bot);
             bot.CurrentRoom = this;
+            if (isCrownLeaver)
+            {
+                other.tag = "Bot";
+            }
         }
         //if (other.tag == "Item")
         //{
@@ -76,6 +84,13 @@ public class Room : MonoBehaviour
         if (other.tag != "Bot")
             return;
         this.Bots.Remove(other.GetComponent<Bot>());
+    }
+
+    public Crowd AddCrowd()
+    {
+        var crowd = new Crowd();
+        this.Crowds.Add(crowd);
+        return crowd;
     }
 
 }

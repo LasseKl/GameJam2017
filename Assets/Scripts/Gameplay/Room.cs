@@ -58,11 +58,17 @@ public class Room : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Bot")
-            return;
-        var bot = other.GetComponent<Bot>();
-        this.Bots.Add(bot);
-        bot.CurrentRoom = this;
+        if (other.tag == "Bot")
+        {
+            var bot = other.GetComponent<Bot>();
+            this.Bots.Add(bot);
+            bot.CurrentRoom = this;
+        }
+        //if (other.tag == "Item")
+        //{
+            //var item = other.GetComponent<Item>();
+            //item.Room = this;
+        //}
     }
 
     public void OnTriggerExit(Collider other)

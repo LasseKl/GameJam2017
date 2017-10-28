@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TinyRoar.Framework;
 using UnityEngine;
@@ -24,6 +25,30 @@ public class Bot : MonoBehaviour
 
     private Room currentRoom;
     private NavMeshAgent agent;
+    private float PanicTimeout;
+    private BotStatus CurBotStatus;
+    public float BaseSpeed = 2;
+    public float FearSpeed = 2;
+
+    public float ActualSpeed
+    {
+        get
+        {
+            return BaseSpeed + FearSpeed * FearLevel;
+        }
+    }
+
+    public float AttentionBaseRadius;
+
+    public float ActualAttenRadius
+    {
+        get
+        {
+            return (AttentionBaseRadius - AttentionBaseRadius * FearLevel/100) + 0.5f;
+        } 
+    }
+
+    private Dictionary<BotStatus, BaseStatus> _botStatus;
 
     [HideInInspector]
     public Room CurrentRoom
@@ -45,6 +70,23 @@ public class Bot : MonoBehaviour
         CurrentRoom = FindObjectOfType<Room>();
         Updater.Instance.OnUpdate += DoUpdate;
         FearLevel = 0;
+        InitStatus();
+
+        CurBotStatus = BotStatus.Chill;
+    }
+
+    private void InitStatus()
+    {
+        _botStatus = new Dictionary<BotStatus, BaseStatus>();
+        foreach (BotStatus botStatus in Enum.GetValues(typeof(BotStatus)))
+        {
+            if (botStatus == BotStatus.None)
+                continue;
+            var baseStatus = CodeHelper.CreateInstance<BaseStatus>(botStatus+"Status");
+            baseStatus.Bot = this;
+            _botStatus.Add(botStatus, baseStatus);
+        }
+
     }
 
     void DoUpdate()

@@ -7,6 +7,7 @@ public class Room : MonoBehaviour
 
     private BoxCollider boxCollider;
     public List<Bot> Bots;
+    public List<Room> Neighbours;
 
 
     public Vector3 Size

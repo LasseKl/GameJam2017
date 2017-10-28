@@ -10,13 +10,10 @@ public class BotAttentionArea : MonoBehaviour
 
     private CapsuleCollider _collider; 
 
-    void Awake()
-    {
-        _collider = GetComponent<CapsuleCollider>();
-    }
-
     public void SetRadius(float radius)
     {
+        if(_collider == null)
+            _collider = GetComponent<CapsuleCollider>();
         _collider.radius = radius;
     }
 

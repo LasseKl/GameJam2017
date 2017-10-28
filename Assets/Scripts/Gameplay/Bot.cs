@@ -60,8 +60,8 @@ public class Bot : MonoBehaviour
     {
         get
         {
-            return (AttentionBaseRadius - AttentionBaseRadius * FearLevel/100) + 0.5f;
-        } 
+            return (AttentionBaseRadius - AttentionBaseRadius * FearLevel / 100) + 0.5f;
+        }
     }
 
     //private Dictionary<BotStatus, BaseStatus> _botStatus;
@@ -77,9 +77,10 @@ public class Bot : MonoBehaviour
         {
             currentRoom = value;
 
-            if(TargetRoom == null)
+            if (TargetRoom == null)
             {
                 SetupChillStatus();
+                AttentionArea.gameObject.SetActive(true);
             }
         }
     }
@@ -111,12 +112,9 @@ public class Bot : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         Updater.Instance.OnUpdate += DoUpdate;
         FearLevel = 0;
-        InitStatus();
         AttentionArea.Bot = this;
 
         FearLevel = 0;
-        //CurBotStatus = BotStatus.Chill;
-        SetBotStatus<ChillStatus>();
     }
 
     private void SetupChillStatus()
@@ -129,13 +127,13 @@ public class Bot : MonoBehaviour
     {
         UpdateFear();
 
-        if(CurBotStatus != null)
+        if (CurBotStatus != null)
         {
             CurBotStatus.Update();
         }
 
         //Teste Raum verlassen
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             SetBotStatus<ChangeRoomStatus>();
         }
@@ -158,7 +156,7 @@ public class Bot : MonoBehaviour
 
     public void SetBotStatus<T>() where T : BaseStatus, new()
     {
-        if(CurBotStatus != null)
+        if (CurBotStatus != null)
             CurBotStatus.Deactivate();
 
         var baseStatus = new T();
@@ -169,7 +167,7 @@ public class Bot : MonoBehaviour
     public void SetNewTargetInRoom()
     {
         agent.destination = TargetRoom.GetRandomPosInRoom();
-}
+    }
     private void UpdateAttentionArea()
     {
         var radius = ActualAttentionRadius;

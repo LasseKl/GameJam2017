@@ -14,6 +14,19 @@ public class Config : MonoSingleton<Config>
     [HideInInspector]
     public List<Room> Rooms;
 
+    public float chillDurationMin = 10;
+    public float chillDurationMax = 20;
+    public float groupChillDurationMin = 10;
+    public float groupChillDurationMax = 30;
 
+    public float GetRandomGroupChillDuration()
+    {
+        return Random.Range(groupChillDurationMin, groupChillDurationMax);
+    }
+
+    public float GetRandomChillDuration()
+    {
+        return Random.Range(chillDurationMin, chillDurationMax);
+    }
 
 }

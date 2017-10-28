@@ -1,12 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TinyRoar.Framework;
 using UnityEngine;
 
 public class ChillStatus : BaseStatus
 {
+
+    int timerId;
     public override void Activate()
     {
         Bot.SetNewTargetInRoom();
+        timerId = Timer.Instance.Add(Config.Instance.GetRandomChillDuration(), () => 
+        {
+            Bot.SetBotStatus<ChangeRoomStatus>();
+        });
     }
 
     public override void Update()
@@ -15,5 +20,10 @@ public class ChillStatus : BaseStatus
         {
             Activate();
         }
+    }
+
+    public override void Deactivate()
+    {
+        Timer.Instance.Stop(timerId);
     }
 }

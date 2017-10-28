@@ -58,24 +58,24 @@ public class House : MonoSingleton<House>
 
             AnimatePushBotAway(item, bot);
 
-            bot.SetBotStatus<ChangeRoomStatus>();
-            bot.tag = "CrowdLeaver";
+            //bot.SetBotStatus<ChangeRoomStatus>();
+            //bot.tag = "CrowdLeaver";
 
 
-            // TODO maybe auslagern später?
-            if (bot.Crowd != null)
-            {
-                bot.Crowd.Bots.Remove(bot);
-                if (bot.Crowd.Bots.Count == 1)
-                {
-                    var otherBot = bot.Crowd.Bots[0];
-                    otherBot.CurrentRoom.Crowds.Remove(otherBot.Crowd);
-                    otherBot.Crowd = null;
-                    bot.Crowd.Bots.Clear();
-                    otherBot.SetBotStatus<ChangeRoomStatus>();
-                    otherBot.tag = "CrowdLeaver";
-                }
-            }
+            //// TODO maybe auslagern später?
+            //if (bot.Crowd != null)
+            //{
+            //    bot.Crowd.Bots.Remove(bot);
+            //    if (bot.Crowd.Bots.Count == 1)
+            //    {
+            //        var otherBot = bot.Crowd.Bots[0];
+            //        otherBot.CurrentRoom.Crowds.Remove(otherBot.Crowd);
+            //        otherBot.Crowd = null;
+            //        bot.Crowd.Bots.Clear();
+            //        otherBot.SetBotStatus<ChangeRoomStatus>();
+            //        otherBot.tag = "CrowdLeaver";
+            //    }
+            //}
 
             bot.FearLevel += item.FearValue * relativeDist;
 
@@ -85,11 +85,9 @@ public class House : MonoSingleton<House>
 
     private void AnimatePushBotAway(Item item, Bot bot)
     {
-        Debug.Log("Push " + bot.name);
         var itemPos = item.transform.position;
         var botPos = bot.transform.position;
         var direction = botPos - itemPos;
-        Debug.Log(direction);
         bot.DoPush(direction);
     }
 

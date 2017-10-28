@@ -23,6 +23,7 @@ public class Bot : MonoBehaviour
             UpdateFearUI();
             UpdateAttentionArea();
             CheckRage();
+            CheckGoHomeYoureDrunk();
         }
     }
 
@@ -189,6 +190,14 @@ public class Bot : MonoBehaviour
         }
     }
 
+    private void CheckGoHomeYoureDrunk()
+    {
+        if (FearLevel == 100)
+        {
+            SetBotStatus<RunRandomlyStatus>();
+        }
+    }
+
     private bool isPushingAway = false;
     private Vector3 _direction;
     private Rigidbody rigidbody;
@@ -196,20 +205,23 @@ public class Bot : MonoBehaviour
     public void DoPush(Vector3 direction)
     {
         rigidbody = GetComponent<Rigidbody>();
-        Updater.Instance.OnUpdate += PushUpdate;
+        //Updater.Instance.OnUpdate += PushUpdate;
         _direction = direction;
+        var thrust = 150f;
+        rigidbody.AddForce(_direction * thrust);
         if (isPushingAway)
             return;
-        Timer.Instance.Add(0.3f, () =>
+        Timer.Instance.Add(1f, () =>
         {
             isPushingAway = false;
-            Updater.Instance.OnUpdate -= PushUpdate;
+            //Updater.Instance.OnUpdate -= PushUpdate;
+            rigidbody.velocity = Vector3.zero;
         });
     }
 
-    private void PushUpdate()
-    {
-        var thrust = 100f;
-        rigidbody.AddForce(_direction * thrust);
-    }
+    //private void PushUpdate()
+    //{
+    //    var thrust = 20f;
+    //    rigidbody.AddForce(_direction * thrust);
+    //}
 }

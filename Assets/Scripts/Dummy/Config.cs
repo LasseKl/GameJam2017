@@ -21,7 +21,15 @@ public class Config : MonoSingleton<Config>
     public float groupChillDurationMin = 10;
     public float groupChillDurationMax = 30;
 
-    public Vector3 runOutOfHouseTarget;
+    public Transform OutOfHouse;
+    [HideInInspector]
+    public Vector3 runOutOfHouseTarget
+    {
+        get
+        {
+            return OutOfHouse.position;
+        }
+    }
 
     public float GetRandomGroupChillDuration()
     {

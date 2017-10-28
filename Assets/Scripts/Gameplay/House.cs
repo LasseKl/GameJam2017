@@ -56,10 +56,11 @@ public class House : MonoSingleton<House>
             dist *= 2;
             var relativeDist = 1 - Mathf.Min(dist / maxDist, 1);
 
+            AnimatePushBotAway(item, bot);
+
             bot.SetBotStatus<ChangeRoomStatus>();
             bot.tag = "CrowdLeaver";
 
-            AnimatePushBotAway(item, bot);
 
             // TODO maybe auslagern später?
             if (bot.Crowd != null)
@@ -84,9 +85,11 @@ public class House : MonoSingleton<House>
 
     private void AnimatePushBotAway(Item item, Bot bot)
     {
+        Debug.Log("Push " + bot.name);
         var itemPos = item.transform.position;
         var botPos = bot.transform.position;
         var direction = botPos - itemPos;
+        Debug.Log(direction);
         bot.DoPush(direction);
     }
 

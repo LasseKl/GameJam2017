@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33844641139045330}
   - component: {fileID: 64958028034058868}
   - component: {fileID: 23938423200970888}
+  - component: {fileID: 95032569913331896}
   m_Layer: 10
   m_Name: Active
   m_TagString: Untagged
@@ -74,7 +75,6 @@ GameObject:
   - component: {fileID: 4405154330970950}
   - component: {fileID: 65810664580062340}
   - component: {fileID: 114762762723217568}
-  - component: {fileID: 95862995153907120}
   m_Layer: 10
   m_Name: Item
   m_TagString: Item
@@ -90,7 +90,7 @@ Transform:
   m_GameObject: {fileID: 1101467044909060}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: -0.0000002980232}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.24000001, y: 0.24000001, z: 0.24000001}
+  m_LocalScale: {x: 0.24, y: 0.24000001, z: 0.24}
   m_Children: []
   m_Father: {fileID: 4405154330970950}
   m_RootOrder: 1
@@ -300,13 +300,13 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!95 &95862995153907120
+--- !u!95 &95032569913331896
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1459555653576322}
+  m_GameObject: {fileID: 1101467044909060}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 8b7138f08c0bd7248a597b96e5c9aee2, type: 2}
@@ -330,7 +330,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: {fileID: 1101467044909060}
   Inactive: {fileID: 1298603398731590}
-  Animator: {fileID: 95862995153907120}
   FearValue: 50
   Room: {fileID: 0}
   Allowed: 1

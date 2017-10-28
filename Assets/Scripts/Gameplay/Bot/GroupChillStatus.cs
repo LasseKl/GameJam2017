@@ -36,6 +36,7 @@ public class GroupChillStatus : BaseStatus
     public override void Deactivate()
     {
         Timer.Instance.Stop(timerId);
+        Bot.Agent.speed = Bot.BaseSpeed;
     }
 
     public override void Update()

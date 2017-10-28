@@ -139,10 +139,10 @@ public class Bot : MonoBehaviour
         }
 
         //Teste Raum verlassen
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SetBotStatus<RunRandomlyStatus>();
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    SetBotStatus<RunRandomlyStatus>();
+        //}
     }
 
     private void UpdateFear()
@@ -207,7 +207,7 @@ public class Bot : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         //Updater.Instance.OnUpdate += PushUpdate;
         _direction = direction;
-        var thrust = 150f;
+        var thrust = 250f;
         rigidbody.AddForce(_direction * thrust);
         if (isPushingAway)
             return;

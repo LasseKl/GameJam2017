@@ -47,36 +47,37 @@ public class House : MonoSingleton<House>
         // float maxDist = room.halbeBreite/Höhe = 100%.
         var size = item.Room.Size;
         var maxDist = (size.x + size.z) / 2;
-
+        maxDist *= 2;
         // find Distance zwischen item und bot und dies * maxDist in prozent.
         // aber d max=100%
         foreach (var bot in bots)
         {
             var dist = Vector3.Distance(bot.transform.position, item.transform.position);
-            dist *= 2;
+            
             var relativeDist = 1 - Mathf.Min(dist / maxDist, 1);
 
             AnimatePushBotAway(item, bot);
 
-            //bot.SetBotStatus<ChangeRoomStatus>();
-            //bot.tag = "CrowdLeaver";
+            bot.SetBotStatus<ChangeRoomStatus>();
+            bot.tag = "CrowdLeaver";
 
+            // TODO maybe auslagern später?
+            if (bot.Crowd != null)
+            {
+                bot.Crowd.Bots.Remove(bot);
+                if (bot.Crowd.Bots.Count == 1)
+                {
+                    var otherBot = bot.Crowd.Bots[0];
+                    otherBot.CurrentRoom.Crowds.Remove(otherBot.Crowd);
+                    otherBot.Crowd = null;
+                    bot.Crowd.Bots.Clear();
+                    otherBot.SetBotStatus<ChangeRoomStatus>();
+                    otherBot.tag = "CrowdLeaver";
+                }
+            }
 
-            //// TODO maybe auslagern später?
-            //if (bot.Crowd != null)
-            //{
-            //    bot.Crowd.Bots.Remove(bot);
-            //    if (bot.Crowd.Bots.Count == 1)
-            //    {
-            //        var otherBot = bot.Crowd.Bots[0];
-            //        otherBot.CurrentRoom.Crowds.Remove(otherBot.Crowd);
-            //        otherBot.Crowd = null;
-            //        bot.Crowd.Bots.Clear();
-            //        otherBot.SetBotStatus<ChangeRoomStatus>();
-            //        otherBot.tag = "CrowdLeaver";
-            //    }
-            //}
-
+            //Debug.Log(relativeDist);
+            //Debug.Log(item.FearValue * relativeDist);
             bot.FearLevel += item.FearValue * relativeDist;
 
         }
@@ -88,6 +89,7 @@ public class House : MonoSingleton<House>
         var itemPos = item.transform.position;
         var botPos = bot.transform.position;
         var direction = botPos - itemPos;
+        //direction *= relativeDist;
         bot.DoPush(direction);
     }
 

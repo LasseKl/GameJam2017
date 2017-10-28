@@ -11,5 +11,7 @@ public abstract class BaseStatus
     public virtual void Deactivate()
     {
     }
-
+    public virtual void Update()
+    {
+    }
 }

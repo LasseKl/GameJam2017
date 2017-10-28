@@ -7,14 +7,13 @@ public class Room : MonoBehaviour
 
     private BoxCollider boxCollider;
     public List<Bot> Bots;
-    public List<Room> Neighbours;
-
+    const float BORDER = 2.5f;
 
     public Vector3 Size
     {
         get
         {
-            return new Vector3(transform.localScale.x / 2, transform.localScale.y / 2, transform.localScale.z / 2);
+            return new Vector3(transform.localScale.x / 2 - BORDER, transform.localScale.y / 2 - BORDER, transform.localScale.z / 2 - BORDER);
         }
     }
     public Vector3 Position
@@ -40,18 +39,7 @@ public class Room : MonoBehaviour
             return new Vector2(Position.x + Size.x, Position.z + Size.z);
         }
     }
-
-    public Vector3 RandomPosInRoom
-    {
-        get
-        {
-            float randomX = Random.Range(TopLeft.x, BottomRight.x);
-            float randomZ = Random.Range(BottomRight.y, TopLeft.y);
-            return new Vector3(randomX, 0, randomZ);
-        }
-    }
-
-    void Start()
+    void Awake()
     {
         Config.Instance.Rooms.Add(this);
     }
@@ -66,8 +54,8 @@ public class Room : MonoBehaviour
         }
         //if (other.tag == "Item")
         //{
-            //var item = other.GetComponent<Item>();
-            //item.Room = this;
+        //var item = other.GetComponent<Item>();
+        //item.Room = this;
         //}
     }
 
@@ -78,4 +66,25 @@ public class Room : MonoBehaviour
         this.Bots.Remove(other.GetComponent<Bot>());
     }
 
+    public Vector3 GetRandomPosInRoom()
+    {
+        float randomX = Random.Range(TopLeft.x, BottomRight.x);
+        float randomZ = Random.Range(BottomRight.y, TopLeft.y);
+        return new Vector3(randomX, 0, randomZ);
+
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="excluded">Room that should be excluded from the random selection</param>
+    /// <returns></returns>
+    public static Room GetRandomRoom(Room excluded = null)
+    {
+        List<Room> rooms = new List<Room>();
+        rooms.AddRange(Config.Instance.Rooms);
+        if (excluded != null)
+            rooms.Remove(excluded);
+        return rooms[Random.Range(0, rooms.Count)];
+    }
 }

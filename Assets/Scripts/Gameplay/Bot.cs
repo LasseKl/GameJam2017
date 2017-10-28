@@ -60,39 +60,63 @@ public class Bot : MonoBehaviour
         set
         {
             currentRoom = value;
-            agent.destination = currentRoom.RandomPosInRoom;
+
+            if(TargetRoom == null)
+            {
+                SetupChillStatus();
+            }
+        }
+    }
+
+    private Room targetRoom;
+    public Room TargetRoom
+    {
+        get
+        {
+            return targetRoom;
+        }
+        set
+        {
+            targetRoom = value;
+            SetNewTargetInRoom();
+        }
+    }
+
+    public NavMeshAgent Agent
+    {
+        get
+        {
+            return agent;
         }
     }
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        CurrentRoom = FindObjectOfType<Room>();
         Updater.Instance.OnUpdate += DoUpdate;
         FearLevel = 0;
-        InitStatus();
-
-        //CurBotStatus = BotStatus.Chill;
-        SetBotStatus<ChillStatus>();
     }
 
-    private void InitStatus()
+    private void SetupChillStatus()
     {
-        //_botStatus = new Dictionary<BotStatus, BaseStatus>();
-        //foreach (BotStatus botStatus in Enum.GetValues(typeof(BotStatus)))
-        //{
-        //    if (botStatus == BotStatus.None)
-        //        continue;
-        //    var baseStatus = CodeHelper.CreateInstance<BaseStatus>(botStatus+"Status");
-        //    baseStatus.Bot = this;
-        //    _botStatus.Add(botStatus, baseStatus);
-        //}
-
+        TargetRoom = CurrentRoom;
+        SetBotStatus<ChillStatus>();
     }
 
     void DoUpdate()
     {
         UpdateFear();
+
+        if(CurBotStatus != null)
+        {
+            CurBotStatus.Update();
+        }
+
+        //Teste Raum verlassen
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            SetBotStatus<ChangeRoomStatus>();
+        }
     }
 
     private void UpdateFear()
@@ -119,6 +143,11 @@ public class Bot : MonoBehaviour
         baseStatus.Bot = this;
         baseStatus.Activate();
         CurBotStatus = baseStatus;
+    }
+
+    public void SetNewTargetInRoom()
+    {
+        agent.destination = TargetRoom.GetRandomPosInRoom();
     }
 
 }

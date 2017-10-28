@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TinyRoar.Framework;
 using UnityEngine;
 
 public class Item : MonoBehaviour
@@ -10,30 +11,28 @@ public class Item : MonoBehaviour
     [HideInInspector]
     public Room Room;
 
+    [HideInInspector]
     public bool Allowed = true;
+
+    public float ReactivateTime = 10.0f;
 
     void Start()
     {
         this.Room = this.transform.parent.parent.Find("Trigger").GetComponent<Room>();
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log(other.name);
-        if (other.tag != "Ghost")
-            return;
-        GhostItemCollider.Instance.Item = this;
-        //Item = other.GetComponent<Item>();
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        GhostItemCollider.Instance.Item = null;
-    }
-
     //private void OnMouseDown()
     //{
     //    House.Instance.DoClick(this);
     //}
+
+    public void Used()
+    {
+        Allowed = false;
+        Timer.Instance.Add(ReactivateTime, () =>
+        {
+            Allowed = true;
+        });
+    }
 
 }

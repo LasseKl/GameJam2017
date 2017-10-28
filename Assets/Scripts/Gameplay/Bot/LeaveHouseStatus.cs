@@ -8,4 +8,5 @@ public class LeaveHouseStatus : BaseStatus
     public override void Activate()
     {
     }
+
 }

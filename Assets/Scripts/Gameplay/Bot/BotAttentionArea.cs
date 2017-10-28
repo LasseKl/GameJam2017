@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TinyRoar.Framework;
 using UnityEngine;
 
 public class BotAttentionArea : MonoBehaviour
@@ -7,8 +8,21 @@ public class BotAttentionArea : MonoBehaviour
     [HideInInspector]
     public Bot Bot;
 
+    private CapsuleCollider _collider; 
+
+    void Awake()
+    {
+        _collider = GetComponent<CapsuleCollider>();
+    }
+
+    public void SetRadius(float radius)
+    {
+        _collider.radius = radius;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
+        var myName = Bot.name;
         if(other.tag != "Bot")
             return;
         var hasCrowd = Bot.Crowd != null;
@@ -16,15 +30,21 @@ public class BotAttentionArea : MonoBehaviour
             return;
         // if other.bot is in a crowd
         var otherBot = other.GetComponent<Bot>();
-        if(otherBot.Crowd == null)
+        var otherName = otherBot.name;
+        if (otherBot.Crowd == null)
         {
+            //Print.Log("Add Crowd " + myName + " / " + otherName);
             // start crowd and join bot
             var crowd = Bot.CurrentRoom.AddCrowd();
             crowd.Bots.Add(Bot);
             crowd.Bots.Add(otherBot);
+            Bot.Crowd = crowd;
+            otherBot.Crowd = crowd;
+            otherBot.SetBotStatus<GroupChillStatus>();
         }
         else
         {
+            //Print.Log("Join Crowd " + myName + " / " + otherName);
             // join his crown
             otherBot.Crowd.Bots.Add(Bot);
             Bot.Crowd = otherBot.Crowd;

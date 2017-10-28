@@ -9,8 +9,19 @@ public class Room : MonoBehaviour
     public List<Bot> Bots;
     public List<Room> Neighbours;
 
-    [HideInInspector]
-    private List<Crowd> Crowds;
+    //[HideInInspector]
+    public List<Crowd> crowds;
+    public List<Crowd> Crowds
+    {
+        get
+        {
+            return crowds;
+        }
+        set
+        {
+            crowds = value;
+        }
+    }
 
     public Vector3 Size
     {

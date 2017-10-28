@@ -102,7 +102,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1838356810403410}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.99, y: 0, z: 8.6}
+  m_LocalPosition: {x: 11.39, y: 0, z: 12.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4298425784485374}
@@ -263,7 +263,7 @@ MonoBehaviour:
   AttentionArea: {fileID: 114836815685876932}
   BaseSpeed: 2
   FearSpeed: 2
-  AttentionBaseRadius: 3
+  AttentionBaseRadius: 7
 --- !u!114 &114836815685876932
 MonoBehaviour:
   m_ObjectHideFlags: 1

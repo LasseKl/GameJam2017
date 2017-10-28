@@ -24,7 +24,6 @@ public class Bot : MonoBehaviour
         {
             currentRoom = value;
             agent.destination = currentRoom.RandomPosInRoom;
-            Debug.Log(agent.destination);
         }
     }
 

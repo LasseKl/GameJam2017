@@ -56,30 +56,47 @@ public class House : MonoSingleton<House>
             dist *= 2;
             var relativeDist = 1 - Mathf.Min(dist / maxDist, 1);
 
-            var thrust = 10.0f;
-            var rb = bot.GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward * thrust);
-            Print.Log("ADD FORCE");
+            // Animate Bot
+            AnimatePushBotAway(item, bot);
 
             bot.SetBotStatus<ChangeRoomStatus>();
             bot.tag = "CrowdLeaver";
 
             // TODO maybe auslagern später?
-            bot.Crowd.Bots.Remove(bot);
-            if (bot.Crowd.Bots.Count == 1)
+            if(bot.Crowd != null)
             {
-                var otherBot = bot.Crowd.Bots[0];
-                otherBot.CurrentRoom.Crowds.Remove(otherBot.Crowd);
-                otherBot.Crowd = null;
-                bot.Crowd.Bots.Clear();
-                otherBot.SetBotStatus<ChangeRoomStatus>();
-                otherBot.tag = "CrowdLeaver";
+                bot.Crowd.Bots.Remove(bot);
+                if (bot.Crowd.Bots.Count == 1)
+                {
+                    var otherBot = bot.Crowd.Bots[0];
+                    otherBot.CurrentRoom.Crowds.Remove(otherBot.Crowd);
+                    otherBot.Crowd = null;
+                    bot.Crowd.Bots.Clear();
+                    otherBot.SetBotStatus<ChangeRoomStatus>();
+                    otherBot.tag = "CrowdLeaver";
+                }
             }
 
             bot.FearLevel += item.FearValue * relativeDist;
 
         }
 
+    }
+
+    private void AnimatePushBotAway(Item item, Bot bot)
+    {
+        var thrust = 10000.0f;
+        var rb = bot.GetComponent<Rigidbody>();
+        // get this pos
+        var itemPos = item.transform.position;
+        // get bot pos
+        var botPos = bot.transform.position;
+        // get direction
+        var direction = botPos - itemPos;
+        direction.y = 0;
+        rb.AddForce(direction * thrust);
+        Debug.Log(direction);
+        Print.Log("ADD FORCE to " + bot.name);
     }
 
 

@@ -169,10 +169,12 @@ public class Bot : MonoBehaviour
         baseStatus.Activate();
         CurBotStatus = baseStatus;
     }
+
     public void SetNewTargetInRoom()
     {
         agent.destination = TargetRoom.GetRandomPosInRoom();
     }
+
     private void UpdateAttentionArea()
     {
         var radius = ActualAttentionRadius;

@@ -38,6 +38,12 @@ public class Item : MonoBehaviour
             SetActive(false);
             Allowed = true;
         });
+
+        // play sound
+        AudioSource asrc = GetComponent<AudioSource>();
+        if (asrc != null) {
+            asrc.Play();
+        }
     }
 
     private void SetActive(bool status)

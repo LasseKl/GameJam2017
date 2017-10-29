@@ -10,10 +10,15 @@ public class GhostItemCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log(other.name);
-        if (other.tag != "Item")
-            return;
-        Item = other.GetComponent<Item>();
+        if (other.tag == "Item")
+        {
+            Item = other.GetComponent<Item>();
+        }
+        else if(other.tag == "Bot" || other.tag == "CrowdLeaver")
+        {
+            var bot = other.GetComponent<Bot>();
+            bot.AnimatePushBotAway(this.transform.position);
+        }
     }
 
     private void OnTriggerExit(Collider other)

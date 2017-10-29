@@ -1161,8 +1161,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1715255495631134}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.39, y: 0, z: 9.7}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5.93, y: 0, z: 11.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4065629892051702}
@@ -1413,13 +1413,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1375694413221064}
-  m_LocalRotation: {x: 0.70710653, y: -0, z: -0, w: 0.7071071}
-  m_LocalPosition: {x: -0.06, y: 1.08, z: 1.75}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.06, y: 2.31, z: 1.75}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 4543112164911660}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4736333276056722
 Transform:
   m_ObjectHideFlags: 1
@@ -1739,9 +1739,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FearLevelText: {fileID: 102112872180211378}
   AttentionArea: {fileID: 114397679843093722}
-  BaseSpeed: 2
-  FearSpeed: 3
-  AttentionBaseRadius: 4
+  BaseSpeed: 1
+  FearSpeed: 2
+  AttentionBaseRadius: 1
 --- !u!136 &136393784230471466
 CapsuleCollider:
   m_ObjectHideFlags: 1

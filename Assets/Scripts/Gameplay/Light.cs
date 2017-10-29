@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using TinyRoar.Framework;
+using System.Linq;
 
 public class Light : MonoBehaviour
 {
-    private List<Collider> ghostsInArea = new List<Collider>();
+    private List<Ghost> ghostsInArea = new List<Ghost>();
     public GameObject lightOnObj;
     public GameObject lightOffObj;
 
@@ -12,7 +14,7 @@ public class Light : MonoBehaviour
     {
         if (other.tag == "Ghost")
         {
-            ghostsInArea.Add(other);
+            ghostsInArea.Add(other.GetComponent<Ghost>());
         }
     }
 
@@ -20,14 +22,16 @@ public class Light : MonoBehaviour
     {
         if (other.tag == "Ghost")
         {
-            ghostsInArea.Remove(other);
+            ghostsInArea.Remove(other.GetComponent<Ghost>());
         }
     }
 
     private void Update()
     {
-        if (ghostsInArea.Count != 0
-            && Input.GetMouseButtonDown(0))
+        bool containsFp = ghostsInArea.Where(ghost => ghost.PlayerId == 1).Any();
+        bool containsSp = ghostsInArea.Where(ghost => ghost.PlayerId == 2).Any();
+
+        if ((containsFp && Input.GetKeyDown(KeyCode.Space)) || (containsSp && Input.GetKeyDown(KeyCode.Return)))
         {
             SwitchOff();
         }
@@ -48,5 +52,6 @@ public class Light : MonoBehaviour
     {
         lightOnObj.SetActive(false);
         lightOffObj.SetActive(true);
+        Timer.Instance.Add(10, SwitchOn);
     }
 }

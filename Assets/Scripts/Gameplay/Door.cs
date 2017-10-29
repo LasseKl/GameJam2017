@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
+using System.Linq;
 
 public class Door : MonoBehaviour
 {
@@ -38,8 +39,10 @@ public class Door : MonoBehaviour
 
     private void Update()
     {
-        if(blockingGhosts.Count != 0
-            && Input.GetMouseButtonDown(0))
+        bool containsFp = blockingGhosts.Where(ghost => ghost.PlayerId == 1).Any();
+        bool containsSp = blockingGhosts.Where(ghost => ghost.PlayerId == 2).Any();
+
+        if ((containsFp && Input.GetKeyDown(KeyCode.Space))||(containsSp && Input.GetKeyDown(KeyCode.Return)))
         {
             closed = true;
             CloseDoor();

@@ -46,6 +46,11 @@ public class Light : MonoBehaviour
     {
         lightOnObj.SetActive(true);
         lightOffObj.SetActive(false);
+
+        //audio
+        MultiSound msnd = GetComponent<MultiSound>();
+        if (msnd != null)
+            msnd.playSound(0);
     }
 
     private void SwitchOff()
@@ -53,5 +58,10 @@ public class Light : MonoBehaviour
         lightOnObj.SetActive(false);
         lightOffObj.SetActive(true);
         Timer.Instance.Add(10, SwitchOn);
+
+        //audio
+        MultiSound msnd = GetComponent<MultiSound>();
+        if (msnd != null)
+            msnd.playSound(1);
     }
 }

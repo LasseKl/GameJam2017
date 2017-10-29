@@ -25,7 +25,7 @@ public class Door : MonoBehaviour
         if (closed && blockingGhosts.Count == 0 && other.GetComponent<Bot>() != null)
         {
             closed = false;
-            OpenDoor();
+            OpenDoor(true);
         }
     }
 
@@ -52,14 +52,19 @@ public class Door : MonoBehaviour
     private void Start()
     {
         obstacle = GetComponent<NavMeshObstacle>();
-        OpenDoor();
+        OpenDoor(false);
     }
 
-    private void OpenDoor()
+    private void OpenDoor(bool doSound)
     {
         openObj.SetActive(true);
         closedObj.SetActive(false);
         obstacle.enabled = false;
+
+        //audio
+        MultiSound msnd = GetComponent<MultiSound>();
+        if (msnd != null && doSound)
+            msnd.playSound(0);
     }
 
     private void CloseDoor()
@@ -67,5 +72,10 @@ public class Door : MonoBehaviour
         openObj.SetActive(false);
         closedObj.SetActive(true);
         obstacle.enabled = true;
+
+        //audio
+        MultiSound msnd = GetComponent<MultiSound>();
+        if (msnd != null)
+            msnd.playSound(1);
     }
 }

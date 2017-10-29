@@ -40,9 +40,9 @@ public class Item : MonoBehaviour
         });
 
         // play sound
-        AudioSource asrc = GetComponent<AudioSource>();
+        MultiSound asrc = GetComponent<MultiSound>();
         if (asrc != null) {
-            asrc.Play();
+            asrc.playSound();
         }
     }
 

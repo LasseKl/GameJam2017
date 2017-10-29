@@ -8,6 +8,6 @@ public class MoveAnimation : MonoBehaviour
         var animator = GetComponent<Animator>();
         animator.SetBool("Aiming", false);
         animator.SetFloat("Speed", 0.5f);
-        Debug.Log("animating");
+        //Debug.Log("animating");
     }
 }

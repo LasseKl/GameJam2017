@@ -21,7 +21,7 @@ public class Item : MonoBehaviour
 
     void Start()
     {
-        this.Room = this.transform.parent.parent.Find("Trigger").GetComponent<Room>();
+        this.Room = this.transform.parent.GetComponent<Room>();
     }
 
     //private void OnMouseDown()
